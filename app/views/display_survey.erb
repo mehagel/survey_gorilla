@@ -1,12 +1,18 @@
+<h2><%= @survey.name%></h2>
 
-<ul>Questions:
-   <li>Choices</li>
-   <li>Choices</li>
-   <li>Choices</li>
+<ul>
+  <% @survey.questions.each do |question| %>
+    <li><%= question.content %>
+    <form action="/vote" method="post">
+      <% question.choices.each do |choice| %>
+        <p>
+          <input type="radio" name="<%=question.id%>" value="<%= choice.content %>"><%=choice.content%></input>
+          <input type="hidden" id="hidden1" name="<%=question.id%>">
+        </p>
+      <% end %>
+      <input type="submit" value="Submit">
+    </form>
+    </li>
+  <% end %>
 </ul>
-
-
-
-
-
-
+Vo

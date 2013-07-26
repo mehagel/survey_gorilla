@@ -6,6 +6,7 @@ get '/' do
 end
 
 get '/surveys/:id' do
+  @survey = Survey.find(params[:id])
 
   # Look in app/views/index.erb
   erb :display_survey
@@ -30,3 +31,10 @@ get '/logout' do
   redirect '/'
 end 
 
+post '/vote' do
+  
+
+
+ p params
+  erb :index
+end
