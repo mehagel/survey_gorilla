@@ -10,9 +10,7 @@ get '/surveys/:id' do
 
   # Look in app/views/index.erb
   erb :display_survey
-end
-
-
+endgit 
 
 get '/create_user' do
   erb :login
