@@ -11,9 +11,6 @@ get '/surveys/:id' do
   erb :display_survey
 end
 
-  erb :index 
-end
-
 get '/create_user' do
   erb :login
 end 
