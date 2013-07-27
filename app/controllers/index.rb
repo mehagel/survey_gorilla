@@ -1,6 +1,5 @@
 get '/' do
   @surveys = Survey.all
-  # Look in app/views/index.erb
 
   erb :select_survey
 end

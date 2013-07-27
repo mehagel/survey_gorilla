@@ -4,4 +4,18 @@ $(document).ready(function() {
   // when we try to bind to them
 
   // See: http://docs.jquery.com/Tutorials:Introducing_$(document).ready()
+
+
+//Add New Question
+$('#add_question').on('click', function() {
+  console.log('hello')
+   $('#add_another_question').clone().appendTo('#partial');
 });
+
+});
+
+
+
+  // $('#add-another-card').on('click', function() {
+  //   $(".add-card").clone().toggle().prependTo("#add-more-cards");
+  // });

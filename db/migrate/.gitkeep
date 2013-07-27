@@ -1,0 +1,3 @@
+get '/take_survey' do
+
+end
