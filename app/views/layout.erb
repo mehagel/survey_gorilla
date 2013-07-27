@@ -7,6 +7,7 @@
     See: http://necolas.github.com/normalize.css/
   -->
   <link rel="stylesheet" href="/css/normalize.css">
+  <link rel="stylesheet" href="/css/bootstrap.css">
   <!--
     application.css is where you put your styles
   -->
@@ -14,16 +15,19 @@
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script src="/js/application.js"></script>
+  <script src="/js/bootstrap.js"></script>
 
   <title></title>
 </head>
 <body>
+  <ul class="nav nav-tabs">
   <% if logged_in? %>
-    <a href="/logout">Logout</a>
-     <a href="/create_survey">Create Survey</a>
+   <li class="active"><a href="/logout">Logout</a></li>
+     <li><a href="/create_survey">Create Survey</a></li>
   <% else %> 
-     <a href="/create_user">Login</a>
+     <li><a href="/create_user">Login</a></li>
   <% end %>
+  </ul>
   <%= yield %>
 </body>
 </html>
