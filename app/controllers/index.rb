@@ -31,8 +31,9 @@ get '/logout' do
 end 
 
 post '/vote' do
-@survey =  
-
- p params
+  @vote = Vote.new(params)
+  # once the helper method current_user function is active this needs to be active
+  # @vote.user_id = current_user.id
+  @vote.save
   erb :index
 end

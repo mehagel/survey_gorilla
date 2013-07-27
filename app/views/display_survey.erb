@@ -6,11 +6,11 @@
     <form action="/vote" method="post">
       <% question.choices.each do |choice| %>
         <p>
-          <input type="radio" data-choiceid='<%=choice.id%>'><%=choice.content%></input>
+          <input type="radio" name= "choice_id" value= "<%=choice.id%>"><%=choice.content%></input>
         </p>
       <% end %>
-      <input type="hidden" name="survey.id" value= "<%=@survey.id%>">
-      <input type="hidden" name="question.id" value= "<%=question.id%>">
+      <input type="hidden" name="survey_id" value= "<%=@survey.id%>">
+      <input type="hidden" name="question_id" value= "<%=question.id%>">
 
       <input type="submit" value="Submit">
     </form>
