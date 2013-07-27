@@ -20,10 +20,12 @@
 <body>
   <% if logged_in? %>
     <a href="/logout">Logout</a>
-     <a href="/create_survey">Create Survey</a>
+    <a href="/create_survey">Create Survey</a>
+    <a href="/">Select Survey</a>
   <% else %> 
      <a href="/create_user">Login</a>
   <% end %>
+
   <%= yield %>
 </body>
 </html>

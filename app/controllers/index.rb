@@ -16,13 +16,13 @@ get '/create_user' do
 end 
 
 post '/create_user' do
-  User.create(params)
-  erb :index
+  session[:id] = User.create(params).id
+  redirect '/'
 end
 
 post '/login' do 
   session[:id] = User.login(params).id
-  redirect '/create_user' 
+  redirect '/' 
 end 
 
 get '/logout' do
@@ -33,6 +33,6 @@ end
 post '/vote' do
 @survey =  
 
- p params
-  erb :index
+
+redirect '/'
 end
