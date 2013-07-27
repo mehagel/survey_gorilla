@@ -10,7 +10,7 @@ get '/surveys/:id' do
 
   # Look in app/views/index.erb
   erb :display_survey
-endgit 
+end
 
 get '/create_user' do
   erb :login
@@ -32,8 +32,7 @@ get '/logout' do
 end 
 
 post '/vote' do
-  
-
+@survey =  
 
  p params
   erb :index
