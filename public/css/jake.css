@@ -1,0 +1,11 @@
+#create_user {
+  width: 700px;
+  height: 35px;
+  background-color: gray;
+  position: relative;
+  left: -700px;
+}
+
+#ul_nav {
+  margin-bottom: 0px;
+}
