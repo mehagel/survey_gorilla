@@ -31,7 +31,6 @@ get '/logout' do
 end 
 
 post '/vote' do
-@survey =  
 
 
 redirect '/'
