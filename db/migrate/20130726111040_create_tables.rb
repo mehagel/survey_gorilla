@@ -22,7 +22,6 @@ class CreateTables < ActiveRecord::Migration
       t.belongs_to :choice
       t.belongs_to  :survey
       t.belongs_to  :question
-
     end
 
     create_table :questions  do |t|

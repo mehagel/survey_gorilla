@@ -1,6 +1,5 @@
 get '/' do
   @surveys = Survey.all
-  # Look in app/views/index.erb
 
   erb :select_survey
 end
@@ -8,8 +7,8 @@ end
 get '/surveys/:id' do
   @survey = Survey.find(params[:id])
 
-  # Look in app/views/index.erb
   erb :display_survey
+
 end
 
 get '/create_user' do
