@@ -15,8 +15,10 @@
   <link rel="stylesheet" href="/css/application.css">
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
   <script src="/js/application.js"></script>
   <script src="/js/bootstrap.js"></script>
+  <script src="/js/jake.js"></script>
 
   <title></title>
 </head>
@@ -27,7 +29,7 @@
    <li><a href="/create_survey"></a>Create Survey</li>
    <li><a href="/">Select Survey</a></li>
   <% else %> 
-     <li><a href="/create_user">Login</a></li>
+     <li><a id='login' href="/create_user">Login</a></li>
   <% end %>
   </ul>
   <%= yield %>
