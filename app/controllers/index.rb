@@ -16,13 +16,13 @@ get '/create_user' do
 end 
 
 post '/create_user' do
-  User.create(params)
-  erb :index
+  session[:id] = User.create(params).id
+  redirect '/'
 end
 
 post '/login' do 
   session[:id] = User.login(params).id
-  redirect '/create_user' 
+  redirect '/' 
 end 
 
 get '/logout' do
@@ -31,9 +31,13 @@ get '/logout' do
 end 
 
 post '/vote' do
+
   @vote = Vote.new(params)
   # once the helper method current_user function is active this needs to be active
   # @vote.user_id = current_user.id
   @vote.save
   erb :index
+
+redirect '/'
+
 end

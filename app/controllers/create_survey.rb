@@ -9,6 +9,6 @@ post '/create_survey' do
   new_question.choices.create(params[:choiceone])
   new_question.choices.create(params[:choicetwo])
   new_question.choices.create(params[:choicethree])
-redirect "/select_survey"
+redirect "/"  
 end
 

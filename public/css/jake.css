@@ -1,0 +1,31 @@
+#create_user {
+  width: 700px;
+  height: 35px;
+  background-color: gray;
+  position: relative;
+  left: -780px;
+  padding-left: 75px;
+}
+
+#form_user {
+  margin-left: 264px;
+}
+
+#create_user input {
+  height: 13px;
+  width: 152px;
+  margin-bottom: 3px;
+  margin-left: 10px;
+  margin-top: 6px;
+}
+
+#ul_nav {
+  margin-bottom: 0px;
+}
+
+#button_create {
+  height: 23px;
+  margin-top: 4px;
+  margin-left: 10px;
+  padding-top: 0px;
+}
