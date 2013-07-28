@@ -16,8 +16,10 @@ end
 
 post '/login_user' do
   user = User.where(username: params[:username]).first_or_create! { |user| user.password = params[:password]}
-  p user.error_messages
+  session[:id] = user.id
   # redirect '/'
+  content_type :json
+  {user: true}.to_json
 end
 
 # post '/login' do 

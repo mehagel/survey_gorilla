@@ -25,11 +25,16 @@ $(document).ready(function() {
             $('#form_user input').last().effect('highlight', {color: '#DD1818'}, 1000)
           }
         }else{
-          $.post('/login_user', form)
+          $.post('/login_user').done(function(response){
+            menu_hide();
+            clearInterval(intervalId);
+          });
         }
       }else{
          menu_hide();
-         clearInterval(intervalId)
+         // $('#login').fadeOut(500);
+         clearInterval(intervalId);
+          
        }
     };
   });
