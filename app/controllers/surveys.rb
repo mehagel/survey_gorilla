@@ -13,3 +13,11 @@ get '/surveys/:id/results' do
   end
 
 end
+
+get '/surveys/:id/results/chart' do
+
+  p params
+
+  content_type :json
+  {stuff: true}.to_json
+end
