@@ -1,21 +1,53 @@
 $(document).ready(function() {
-  // This is called after the document has loaded in its entirety
-  // This guarantees that any elements we bind to will exist on the page
-  // when we try to bind to them
+  var questionTemplate = $.trim($('#question_template').html());
 
-  // See: http://docs.jquery.com/Tutorials:Introducing_$(document).ready()
+  function bindEvents() {
+    $('#create_survey').on('click', '#add_question', addQuestion);
+    $('#create_survey').on('click', '#add_choice', function() {
+     console.log('hi')
+     $('.choices').closest('.survey_questions').append("<input class='choice' type='text' name='choice[content]' placeholder='choice 2'>");
+
+   });
+  }
+
+  function addQuestion() {
+    var $question = $(questionTemplate);
+    $question.appendTo('.survey_questions');
+  }
+
+  $('form').on('submit', function(e) {
+    e.preventDefault();
+    var form_data = $(this).serializeArray();
+    var survey = {};
+    var question = {};
+    var question_bank = [];
+
+    while (form_data.length > 0){
+      if (form_data[0].name == 'survey[name]'){
+        survey.name = form_data[0].value;
+        form_data.shift();
+      }  
+      if (form_data[0].name == 'question[content]'){
+        var choices = [];
+        var question = {};
+        question.content = form_data[0].value;
+        form_data.shift();
+        while (form_data.length > 0 && form_data[0].name == 'choice[content]'){
+          choices.push(form_data[0].value);
+          form_data.shift();
+        }
+        question.choice = choices;
+        question_bank.push(question = question);
+      }   
+      survey.questions = question_bank;
+    } 
+    console.log(survey)
+    if (form_data.length == 0){
+      $.post('/create_survey', survey);
+    }  
+  });
 
 
-//Add New Question
-$('#add_question').on('click', function() {
-  console.log('hello')
-   $('#add_another_question').clone().appendTo('#partial');
+
+  bindEvents();
 });
-
-});
-
-
-
-  // $('#add-another-card').on('click', function() {
-  //   $(".add-card").clone().toggle().prependTo("#add-more-cards");
-  // });
