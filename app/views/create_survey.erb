@@ -1,12 +1,26 @@
-<div class="hero-unit">
+<div id="create_survey">
+
 <form action ="/create_survey" method="post">
-  <input type="text" name='survey[name]' placeholder='survey name'><br><br>
-  <div id='add_more_questions'></div>
-  <div id="partial">
-    <%= erb :_add_question, :layout => false %>  
-  </div>
-  <input type="submit" value="submit">
+    <input type="text" name='survey[name]' placeholder='survey name'><br><br>
+    <div class='survey_questions'>
+
+    </div> 
+  <input id='form_button' type="submit" value="Create Survey">
 </form>
+
 <br>
 <button id='add_question' class='btn btn-warning'>Add New Question</button>
+<button id='add_choice' class='btn btn-warning'>Add New Choice</button>
+
 </div>
+
+
+<div id='question_template' style="display:none;">
+  <div class="questions">
+     <input class="question" type="text" name='question[content]' placeholder='question'><br>
+  </div>
+  <div class='choices'>
+      <input class="choice" type="text" name='choice[content]' placeholder='choice 1'>
+      <input class="choice" type="text" name='choice[content]' placeholder='choice 2'>
+  </div>
+</div>      
