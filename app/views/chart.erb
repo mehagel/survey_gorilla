@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- 
+    normalize.css removes cross-browser differences in defaults, e.g.,
+    differences in how form elements appear between Firefox and IE
+    See: http://necolas.github.com/normalize.css/
+  -->
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link rel="stylesheet" href="/css/bootstrap.css">
+  <link rel="stylesheet" href="/css/jake.css">
+  <link rel="stylesheet" href="/css/application.css">
+  <link rel="stylesheet" href="/css/charts.css">
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+  <script src="/js/d3.v3.js"></script>
+  <script src="/js/application.js"></script>
+  <script src="/js/bootstrap.js"></script>
+  <script src="/js/jake.js"></script>
+  <script src="/js/charts.js"></script>
+
+  <title></title>
+</head>
+<body>
+  <ul id='ul_nav' class="nav nav-tabs">
+  <% if logged_in? %>
+   <li class="active"><a href="/logout">Logout</a></li>
+   <li><a href="/create_survey"></a>Create Survey</li>
+   <li><a href="/">Select Survey</a></li>
+  <% else %>
+     <li><a href='/' style='color: #CC3399;'>Survey Bunny</a></li> 
+     <li><a id='login' href="">Login</a></li>
+  <% end %>
+  </ul>
+  <%= yield %>
+</body>
+</html>

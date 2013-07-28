@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   has_many :surveys
   has_many :votes
+  validates_uniqueness_of :username
   include BCrypt
 
   def password
