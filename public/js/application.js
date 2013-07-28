@@ -1,12 +1,11 @@
 $(document).ready(function() {
   var questionTemplate = $.trim($('#question_template').html());
-
+  // Dynamic Form Front End
   function bindEvents() {
     $('#create_survey').on('click', '#add_question', addQuestion);
     $('#create_survey').on('click', '#add_choice', function() {
      console.log('hi')
      $('.choices').closest('.survey_questions').append("<input class='choice' type='text' name='choice[content]' placeholder='choice 2'>");
-
    });
   }
 
@@ -14,7 +13,7 @@ $(document).ready(function() {
     var $question = $(questionTemplate);
     $question.appendTo('.survey_questions');
   }
-
+  // Dynamic Forms Params
   $('form').on('submit', function(e) {
     e.preventDefault();
     var form_data = $(this).serializeArray();
