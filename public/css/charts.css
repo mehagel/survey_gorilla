@@ -1,3 +1,6 @@
+#question {
+  display:none;
+}
 .chart rect {
   stroke: white;
   fill: steelblue;

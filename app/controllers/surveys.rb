@@ -14,10 +14,18 @@ get '/surveys/:id/results' do
 
 end
 
-get '/surveys/:id/results/chart' do
+get '/surveys/:survey_id/results/get' do
 
-  p params
+  survey = Survey.find_by_id(params[:survey_id])
+
+  results = {}
+  survey.questions.each do |question|
+    results[question.content] = {}
+    question.choices.each do |choice|
+      results[question.content][choice.content] = choice.votes.length
+    end
+  end
 
   content_type :json
-  {stuff: true}.to_json
+  {results: results}.to_json
 end
