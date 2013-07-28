@@ -47,7 +47,7 @@ end
 
 post '/dummy' do
   @surveys = Survey.all
-  @surveys_taken = Survey.find(Vote.find_by_user_id(user_id).survey_id)
-  @surveys_created = Survey.find_by_user_id(user_id)
+  @surveys_taken = Survey.find(Vote.find_by_user_id(session[:id]).survey_id)
+  @surveys_created = Survey.find_by_user_id(session[:id])
   erb :profile
 end
