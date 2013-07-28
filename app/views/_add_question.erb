@@ -1,8 +1,29 @@
-<div id='add_another_question'>
+<div id='question'>
   <br>
   <input type="text" name='question[content]' placeholder='question'><br>
-  <input type="text" name='choiceone[content]' placeholder='choice 1'>
-  <input type="text" name='choicetwo[content]' placeholder='choice 2'>
-  <input type="text" name='choicethree[content]' placeholder='choice 3'><br>
-  <br>
+  <input id="choice" type="text" name='choiceone[content]' placeholder='choice 1'>
+  <%= erb :_add_choice, :layout => false %>
 </div>
+
+question = $('#question')
+$('input').clear();
+$('button').on('click', function{
+  $('form').append(question)
+})
+
+choice = $('#choice input')
+$('input').clear();
+$('button').on('click', function{
+  $('question-1').append(question)
+})
+
+<!-- 
+<div id="add_choice_template" style="display: none;">
+  <div class="choice">
+    <h2>Choice</h2>
+    <ul>
+      <li><a href="#" class="delete">Delete</a></li>
+      <li><a href="#" class="complete">Complete</a></li>
+    </ul>
+  </div>
+ </div>  -->
