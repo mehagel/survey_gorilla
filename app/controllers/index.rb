@@ -16,8 +16,9 @@ get '/create_user' do
 end 
 
 post '/create_user' do
-  session[:id] = User.create(params).id
-  redirect '/'
+  p params
+  # session[:id] = User.create(params).id
+  # redirect '/'
 end
 
 post '/login' do 
