@@ -4,26 +4,46 @@ $(document).ready(function() {
     e.preventDefault();
     $('#login').fadeOut(500);
     menu_show();
-    display_bunny_facts(new bunny);
+    bunny_fact((new bunny).facts[0])
+    display_bunny_facts(new bunny)
   });
   $('#create_user').on('click', function(e){
     if($(e.target).is('input')){
       e.preventDefault();
     }else{
-      if ($(e.target).is('button_create')){
-        
-      }
-     menu_hide();
+      if ($(e.target).is('button')){
+        e.preventDefault();
+        var form_data = $('#form_user').serializeArray();
+        var form = {};
+        form.username = form_data[0].value;
+        form.password = form_data[1].value;
+        if (form.username == "" || form.password == ""){
+          if (form.username == "") {
+            $('#form_user input').first().effect('highlight', {color: '#DD1818'}, 1000)
+          }
+          if (form.password == "") {
+            $('#form_user input').last().effect('highlight', {color: '#DD1818'}, 1000)
+          }
+        }else{
+          $.post('/login_user', form)
+        }
+      }else{
+         menu_hide();
+         clearInterval(intervalId)
+       }
     };
   });
 });
 
-
 function display_bunny_facts(bunny) {
-  setInterval(function() {
-    $('#form_text').text("bunnies are..." + shuffle(bunny.facts)[0]);
-    $('#form_text').fadeIn(1000).delay(3000).fadeOut(1000);
-   }, 5000);
+  intervalId = setInterval(function() { 
+    bunny_fact(shuffle(bunny.facts)[0])
+  }, 5000);
+}
+
+function bunny_fact(fact){
+  $('#form_text').text("bunnies are..." + fact);
+  $('#form_text').fadeIn(1000).delay(3000).fadeOut(1000);
 }
 
 function shuffle(array) {

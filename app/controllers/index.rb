@@ -1,6 +1,5 @@
 get '/' do
   @surveys = Survey.all
-
   erb :select_survey
 end
 
@@ -15,16 +14,16 @@ get '/create_user' do
   erb :login
 end 
 
-post '/create_user' do
+post '/login_user' do
   p params
   # session[:id] = User.create(params).id
   # redirect '/'
 end
 
-post '/login' do 
-  session[:id] = User.login(params).id
-  redirect '/' 
-end 
+# post '/login' do 
+#   session[:id] = User.login(params).id
+#   redirect '/' 
+# end 
 
 get '/logout' do
   session.clear
