@@ -1,0 +1,33 @@
+<!-- routes needed
+@surveys = Survey.all
+@surveys_taken = Survey.find(Vote.find_by_user_id(user_id).survey_id)
+@surveys_created = Survey.find_by_user_id(user_id) -->
+
+<div>
+  <form>
+    <p>Surveys to take!</p>
+    <ul>
+        <% @surveys.each do |survey| %>
+      <li><a href="#"><%= survey.name %></a></li>
+      <li>Created by:<%= User.find(survey.user_id).username %></a></li>
+      <% end %>
+  </form>
+
+
+  <form>
+  <p>Surveys Taken!</p>
+    <ul>
+        <% @surveys_taken.each do |survey_taken| %>
+      <li><a href="#"><%= survey_taken.name %></a></li>
+      <li>Created by:<%= User.find(survey_taken.user_id).username %></a></li>
+    <% end %>
+  </form>
+
+  <form>
+  <p>Surveys Created!</p>
+    <ul>
+        <% @surveys_created.each do |survey_created| %>
+      <li><a href="#"><%= survey_created.name %></a></li>
+    <% end %>
+  </form>
+</div>
