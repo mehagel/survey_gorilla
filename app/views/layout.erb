@@ -24,15 +24,14 @@
 </head>
 <body>
   <ul id='ul_nav' class="nav nav-tabs">
-  <% if logged_in? %>
-   <li class="active"><a href="/logout">Logout</a></li>
-   <li><a href="/create_survey"></a>Create Survey</li>
-   <li><a href="/">Select Survey</a></li>
-  <% else %>
-     <li><a href='/' style='color: #CC3399;'>Survey Bunny</a></li> 
-     <li><a id='login' href="">Login</a></li>
-  <% end %>
-  </ul>
-  <%= yield %>
+    <li><a href='/' style='color: #CC3399;'>Survey Bunny</a></li> 
+    <% if logged_in? %>
+    <li><a id='logged1' href="/logout">Logout</a></li>
+    <li><a id='logged2' href="/create_survey">Create Survey</a></li>
+    <% else %>
+    <li><a id='login' href="">Login</a></li>
+    <%end%>
+</ul>
+<%= yield %>
 </body>
 </html>

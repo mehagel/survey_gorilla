@@ -41,9 +41,12 @@ $(document).ready(function() {
       }   
       survey.questions = question_bank;
     } 
-    console.log(survey)
     if (form_data.length == 0){
-      $.post('/create_survey', survey);
+      $.post('/create_survey', survey).done(function(response){
+        console.log('hello')
+        location.reload();
+        });
+      
     }  
   });
 

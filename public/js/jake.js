@@ -26,12 +26,14 @@ $(document).ready(function() {
           }
         }else{
           $.post('/login_user').done(function(response){
-            menu_hide();
+            console.log(response)
+            menu_hide(no_log = false);
             clearInterval(intervalId);
+            location.reload();
           });
         }
       }else{
-         menu_hide();
+         menu_hide(no_log = true);
          // $('#login').fadeOut(500);
          clearInterval(intervalId);
           
@@ -71,9 +73,15 @@ function menu_show(){
   $('#form_text').hide();
 }
 
-function menu_hide(){
+function menu_hide(no_log){
   $('#create_user').animate({
     left: '-=700'
   }, 800);
-  $('#login').fadeIn(500);
+  if (no_log == true){
+    $('#login').fadeIn(500);
+  }else if (no_log == false){
+    console.log('here')
+    $('#logged1').fadeIn(500);
+    $('#logged2').fadeIn(500);
+  }
 }

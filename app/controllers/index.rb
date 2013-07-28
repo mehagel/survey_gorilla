@@ -16,10 +16,13 @@ end
 
 post '/login_user' do
   user = User.where(username: params[:username]).first_or_create! { |user| user.password = params[:password]}
+  # user.errors.each do |attr, msg|
+  #   p attr
+  #   p msg
+  # end
   session[:id] = user.id
-  # redirect '/'
   content_type :json
-  {user: true}.to_json
+  {user: user.username}.to_json
 end
 
 # post '/login' do 
@@ -40,8 +43,6 @@ post '/vote' do
   @vote.save
   erb :index
 
-redirect '/'
-
 end
 
 
@@ -50,4 +51,8 @@ post '/dummy' do
   @surveys_taken = Survey.find(Vote.find_by_user_id(session[:id]).survey_id)
   @surveys_created = Survey.find_by_user_id(session[:id])
   erb :profile
+end
+
+get '/bubbles' do
+  erb :bubbles
 end
