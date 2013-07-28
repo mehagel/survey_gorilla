@@ -19,6 +19,10 @@ $(function(){
 
 });
 
+function bindEvents(){
+  $('')
+}
+
 // Survey object
 var Survey = function(){
   this.questions = [];
@@ -79,7 +83,7 @@ function updateQuestion(survey, question_index, first){
 
 function initializeChart(){
 
-  var chart = d3.select("body").append("svg")
+  var chart = d3.select(".results-display").append("svg")
       .attr("class", "chart")
       .attr("width", 440)
       .attr("height", 140)
