@@ -26,7 +26,6 @@ function bindEvents(survey){
 }
 
 function handleNext(survey){
-  survey.resetChart();
   survey.question_index += 1;
   survey.updateCurrentQuestion();
   survey.updateChart();
@@ -39,7 +38,6 @@ function handleNext(survey){
 }
 
 function handlePrev(survey){
-  survey.resetChart();
   survey.question_index -= 1;
   survey.updateCurrentQuestion();
   survey.updateChart();
@@ -76,6 +74,7 @@ Survey.prototype = {
     question_tag.fadeIn(750);
   },
   updateChart: function(){
+    this.chart.resetChart();
     vote_data = [];
     choice_data = [];
     this.currentQuestion.choices.forEach(function(choice, index, choices){
@@ -83,9 +82,6 @@ Survey.prototype = {
       choice_data.push(choice.content);
     });
     this.chart.renderChart(vote_data, choice_data);
-  },
-  resetChart: function(){
-    this.chart.resetChart();
   }
 }
 
