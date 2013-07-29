@@ -1,10 +1,11 @@
 get '/' do
-  if session[:id]
-    @surveys = Survey.all
-    erb :select_survey
-  else
-    erb :select_survey
-  end
+  erb :select_survey
+  # if session[:id]
+  #   @surveys = Survey.all
+  #   erb :select_survey
+  # else
+  #   erb :select_survey
+  # end
 end
 
 get '/surveys/:id' do

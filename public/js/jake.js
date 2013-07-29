@@ -35,11 +35,15 @@ $(document).ready(function() {
       }else{
          menu_hide(no_log = true);
          // $('#login').fadeOut(500);
-         clearInterval(intervalId);
-          
+         clearInterval(intervalId); 
        }
     };
   });
+
+
+
+
+
 });
 
 function display_bunny_facts(bunny) {

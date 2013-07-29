@@ -9,7 +9,7 @@
  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
     <script src="http://d3js.org/d3.v2.js"></script>
-    <link type="text/css" rel="stylesheet" href="style000.css">
+  
  
     </style>
   </head>
@@ -22,11 +22,19 @@
     <div id='box'>
     </div>
     <script type="text/javascript">
- 
+
+$.post('/get_surveys').done(function(response){
+  console.log(response);
+  console.log('hello');
+  if (response == false){
+    $('body').append('<h3>There are no surveys...</h3>');
+  }else{
+    console.log(response.surveys)
+var counter = 0
 var w = 600,
     h = 600;
- 
-var nodes = d3.range(8).map(function() { return {radius: Math.random() * 12 + 30}; }),
+
+var nodes = d3.range(response.surveys.length + 1).map(function() { return {radius: Math.random() * 12 + 30}; }),
     color = d3.scale.category10();
  
 var force = d3.layout.force()
@@ -51,19 +59,15 @@ var node = svg.selectAll('.node')
   .enter().append("g")
   .attr('class', 'node')
   .call(force.drag)
-    // .attr("r", function(d) { return d.radius - 2; })
-    // .style("fill", function(d, i) { return color(i % 3); })
-    // .text(function(d){return '<span>hello</span>'});
  
  node.append('circle')
-
    .attr("r", function(d) { return d.radius - 2; })
     .style("fill", function(d, i) { return color(i % 3); });
 
-  node.append('text')
-  .attr('dx', w)
-  .attr('dy', h)
-  .text(function(d) { return "what" });
+    node.append('text')
+    .attr('dx', w)
+    .attr('dy', h)
+    .text(function(d) { return response.surveys.shift()});
 
 force.on("tick", function(e) {
   var q = d3.geom.quadtree(nodes),
@@ -112,7 +116,16 @@ function collide(node) {
         || y2 < ny1;
   };
 }
- 
+
+$('g').click(function(){ 
+  console.log($(this).text())
+  console.log(window.location.pathname + "surveys/" + $(this).text())
+  window.location.href=window.location.pathname + "surveys/" + $(this).text();
+});
+   }
+});
+
+
     </script>
   </body>
 </html>

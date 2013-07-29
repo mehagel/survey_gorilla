@@ -29,3 +29,17 @@ get '/surveys/:survey_id/results/get' do
   content_type :json
   {results: results}.to_json
 end
+
+post '/get_surveys' do
+  surveys = Survey.all
+  array = []
+  surveys.each do |survey|
+    array << survey.id
+  end
+  content_type :json
+  if surveys.length > 0
+    {surveys: array}.to_json
+  else
+    {surveys: false}.to_json
+  end
+end

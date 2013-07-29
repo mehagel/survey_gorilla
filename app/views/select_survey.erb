@@ -1,8 +1,8 @@
 <%= erb :_login_menu %>
 
-
-<% if @surveys %>
 <%= erb :_survey_bubbles %>
+<% if @surveys %>
+
 <ul><h2>Choose Survey to Take</h2>
 
   <% @surveys.each do |survey| %>
