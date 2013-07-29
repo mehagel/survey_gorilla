@@ -17,7 +17,7 @@
   <form>
   <p>Surveys Taken!</p>
     <ul>
-      <% if @surveys %>
+      <% if @surveys_taken %>
         <% @surveys_taken.each do |survey_taken| %>
       <li><a href="/surveys/<%=survey_taken.id%>"><%= survey_taken.name %></a></li>
       <li>Created by:<%= User.find(survey_taken.user_id).username %></a></li>
@@ -28,7 +28,7 @@
   <form>
   <p>Surveys Created!</p>
     <ul>
-      <% if @surveys %>
+      <% if @surveys_created %>
         <% @surveys_created.each do |survey_created| %>
       <li><a href="/surveys/<%=surveys_created.id%>"><%= survey_created.name %></a></li>
     <% end %>

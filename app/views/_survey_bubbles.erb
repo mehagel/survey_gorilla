@@ -58,7 +58,7 @@ var node = svg.selectAll('.node')
     .data(nodes.slice(1))
   .enter().append("g")
   .attr('class', 'node')
-  .call(force.drag)
+  .call(force.drag);
  
  node.append('circle')
    .attr("r", function(d) { return d.radius - 2; })

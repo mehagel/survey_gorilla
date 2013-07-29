@@ -74,3 +74,22 @@ h2 {
   margin-right: 900px;
   background-color: #CCFFFF !important;
 }
+
+#take_survey {
+  list-style-type: none;
+}
+
+#take_survey p {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 200px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 20px;
+  background-color: rgba(240,240,240, 1);
+  border-radius: 6px;
+}
+
+#take_survey p input {
+  margin-right: 10px;
+}

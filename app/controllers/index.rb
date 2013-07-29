@@ -57,5 +57,6 @@ get '/bubbles' do
 end
 
 get '/profile' do
+  
   erb :profile
 end
