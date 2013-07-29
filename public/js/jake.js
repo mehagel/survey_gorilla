@@ -40,10 +40,6 @@ $(document).ready(function() {
     };
   });
 
-
-
-
-
 });
 
 function display_bunny_facts(bunny) {

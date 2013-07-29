@@ -42,3 +42,35 @@
 #box {
   padding-left:162px;
 }
+
+h1 {
+  text-align: center;
+}
+
+h2 {
+  text-align: center;
+}
+
+#create_survey {
+  margin-top: 50px;
+  margin-left: 50px;
+}
+
+.questions {
+  margin-top: 20px;
+  margin-bottom: 5px;
+  background-color: gray;
+  width: 800px;
+  border-radius: 6px;
+}
+
+.question {
+  margin-left: 11px;
+  margin-top: 6px;
+  margin-bottom: 6px !important;
+}
+
+.choice {
+  margin-right: 900px;
+  background-color: #CCFFFF !important;
+}
