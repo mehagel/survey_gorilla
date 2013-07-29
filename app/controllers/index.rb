@@ -1,11 +1,16 @@
 get '/' do
-  erb :select_survey
-  # if session[:id]
-  #   @surveys = Survey.all
-  #   erb :select_survey
-  # else
-  #   erb :select_survey
-  # end
+  if session[:id]
+    if Survey.all.length > 0
+      @surveys = true
+      erb :select_survey
+    else
+      @surveys = false
+      erb :select_survey
+    end
+  else
+    erb :select_survey
+  end
+
 end
 
 get '/surveys/:id' do
@@ -21,19 +26,10 @@ end
 
 post '/login_user' do
   user = User.where(username: params[:username]).first_or_create! { |user| user.password = params[:password]}
-  # user.errors.each do |attr, msg|
-  #   p attr
-  #   p msg
-  # end
   session[:id] = user.id
   content_type :json
   {user: user.username}.to_json
 end
-
-# post '/login' do 
-#   session[:id] = User.login(params).id
-#   redirect '/' 
-# end 
 
 get '/logout' do
   session.clear
@@ -58,4 +54,8 @@ end
 
 get '/bubbles' do
   erb :bubbles
+end
+
+get '/profile' do
+  erb :profile
 end
