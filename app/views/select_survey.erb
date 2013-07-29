@@ -1,6 +1,10 @@
-<%= erb :_login_menu %> 
-<ul>Choose Survey to Take
-  <% @surveys.each do |survey| %>
-    <li><a href="/surveys/<%=survey.id%>"><%= survey.name %></a></li>
-  <%end%>
-</ul>
+<%= erb :_login_menu %>
+
+
+<% if @surveys %>
+<ul><h2>Choose a Survey!</h2>
+  <%= erb :_survey_bubbles %>
+<%else%>
+<h1>Login to view available surveys!</h1> 
+<%end%>
+

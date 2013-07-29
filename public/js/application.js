@@ -15,7 +15,7 @@ $(document).ready(function() {
     $question.appendTo('.survey_questions');
   }
 
-  $('form').on('submit', function(e) {
+  $('#survey_form').on('submit', function(e) {
     e.preventDefault();
     var form_data = $(this).serializeArray();
     var survey = {};
@@ -41,9 +41,12 @@ $(document).ready(function() {
       }   
       survey.questions = question_bank;
     } 
-    console.log(survey)
     if (form_data.length == 0){
-      $.post('/create_survey', survey);
+      $.post('/create_survey', survey).done(function(response){
+        console.log('hello')
+        location.reload();
+        });
+      
     }  
   });
 
