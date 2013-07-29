@@ -8,24 +8,32 @@ $(function(){
 
       console.log(mySurvey);
 
-      var i = 0;
-      var question = updateQuestion(mySurvey, i, true);
-      var chart = initializeChart();
+      mySurvey.updateCurrentQuestion(true);
+      mySurvey.updateChart();
 
-      updateChart(chart, question);
-
-      // bindEvents();
+      bindEvents(mySurvey);
     });
 
 });
 
-function bindEvents(){
-  $('')
+function bindEvents(survey){
+  $('#next').click(function(){
+    survey.question_index += 1;
+    survey.updateCurrentQuestion(false);
+    survey.updateChart();
+  })
+}
+
+function updateAll(){
+
 }
 
 // Survey object
 var Survey = function(){
   this.questions = [];
+  this.question_index = 0;
+  this.currentQuestion = null;
+  this.chart = new Chart();
 }
 
 Survey.prototype = {
@@ -36,6 +44,24 @@ Survey.prototype = {
       myQuestion.getChoices(results[question]);
       this.questions.push(myQuestion);
     }
+  },
+  updateCurrentQuestion: function(first){
+    this.currentQuestion = this.questions[this.question_index];
+    var question_tag = $('#question')
+    if (!first){
+      question_tag.fadeOut(400);
+    }
+    question_tag.text(this.currentQuestion.content);
+    question_tag.fadeIn(400);
+  },
+  updateChart: function(){
+    vote_data = [];
+    choice_data = [];
+    this.currentQuestion.choices.forEach(function(choice, index, choices){
+      vote_data.push(choice.votes);
+      choice_data.push(choice.content);
+    });
+    this.chart.renderChart(vote_data, choice_data);
   }
 }
 
@@ -60,98 +86,71 @@ var Choice = function(content, votes){
   this.votes = votes;
 }
 
-function updateQuestion(survey, question_index, first){
-  var question = survey.questions[question_index];
-  var question_tag = $('#question')
-  if (!first){
-    question_tag.fadeOut(400);
-  }
-  question_tag.text(question.content);
-  question_tag.fadeIn(400);
-  return question;
-}
-
-// function updateData(question){
-//   var data = []
-//   question.choices.forEach(function(choice, index, choices){
-//     data.push(choice.votes)
-//   })
-//   return data;
-// }
-
-// http://mbostock.github.io/d3/tutorial/bar-1.html
-
-function initializeChart(){
-
-  var chart = d3.select(".results-display").append("svg")
+// Chart object
+var Chart = function(){
+  this.chart = d3.select(".results-display").append("svg")
       .attr("class", "chart")
       .attr("width", 440)
       .attr("height", 140)
     .append("g")
       .attr("transform", "translate(10,15)");
-
-  return chart;
 }
 
-function updateChart(chart, question){
+// http://mbostock.github.io/d3/tutorial/bar-1.html
 
-  vote_data = [];
-  choice_data = [];
-  question.choices.forEach(function(choice, index, choices){
-    vote_data.push(choice.votes);
-    choice_data.push(choice.content);
-  })
+Chart.prototype = {
+  renderChart: function(vote_data, choice_data){
+    var x = d3.scale.linear()
+        .domain([0, d3.max(vote_data)])
+        .range([0, 420]);
 
+    
 
-  var x = d3.scale.linear()
-      .domain([0, d3.max(vote_data)])
-      .range([0, 420]);
+    // enter()
 
-  // enter()
+    // bars
+    this.chart.selectAll("rect")
+        .data(vote_data)
+      .enter().append("rect")
+        .attr("x",100)
+        .attr("y", function(d, i) { return i * 20 })
+        .attr("width", 0)
+        .attr("height", 20)
+      .transition()
+        .duration(750)
+        .attr("width", x);
 
-  // bars
-  chart.selectAll("rect")
-      .data(vote_data)
-    .enter().append("rect")
-      .attr("x",100)
-      .attr("y", function(d, i) { return i * 20 })
-      .attr("width", 0)
-      .attr("height", 20)
-    .transition()
-      .duration(750)
-      .attr("width", x);
+    // vote value
+    this.chart.selectAll("text .vote-val")
+        .data(vote_data)
+      .enter().append("text")
+        .attr("class", "vote-val")
+        .attr("x", 100)
+        .attr("y", function(d, i) { return (i * 20)+10 })
+        .attr("dx", -3)
+        .attr("dy", ".35em")
+        .attr("text-anchor", "end")
+        .text(String);
 
-  // vote value
-  chart.selectAll("text .vote-val")
-      .data(vote_data)
-    .enter().append("text")
-      .attr("class", "vote-val")
-      .attr("x", 100)
-      .attr("y", function(d, i) { return (i * 20)+10 })
-      .attr("dx", -3)
-      .attr("dy", ".35em")
-      .attr("text-anchor", "end")
-      .text(String);
+    // choice content
+    this.chart.selectAll("text .choicecontent")
+        .data(choice_data)
+      .enter().append("text")
+        .attr("class", "choice-content")
+        .attr("x", 80)
+        .attr("y", function(d, i) { return (i * 20)+10 })
+        .attr("dx", -3)
+        .attr("dy", ".35em")
+        .attr("text-anchor", "end")
+        .text(String);
 
-  // choice content
-  chart.selectAll("text .choicecontent")
-      .data(choice_data)
-    .enter().append("text")
-      .attr("class", "choice-content")
-      .attr("x", 80)
-      .attr("y", function(d, i) { return (i * 20)+10 })
-      .attr("dx", -3)
-      .attr("dy", ".35em")
-      .attr("text-anchor", "end")
-      .text(String);
-
-  // line
-  chart.append("line")
-      .attr("x1",100)
-      .attr("x2",100)
-      .attr("y1", 0)
-      .attr("y2", vote_data.length * 20)
-      .style("stroke", "#000");
-
+    // line
+    this.chart.append("line")
+        .attr("x1",100)
+        .attr("x2",100)
+        .attr("y1", 0)
+        .attr("y2", vote_data.length * 20)
+        .style("stroke", "#000");
+  }
 
 }
