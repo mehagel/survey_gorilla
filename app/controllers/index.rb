@@ -37,12 +37,34 @@ get '/logout' do
 end 
 
 post '/vote' do
- p params[:user_id] = current_user.id
- p params
-   # current_user.votes.create()
-  # Vote.create(params)
-  # erb :select_survey
+ p params 
+ # p params[:survey]
+ # p params[:survey]["20"].each_key do |question, answer|
+ # end
+   
+ # # choice = params[:choice]
+ # # choice.map {|key, value| key = key.to_i}
+ # # p choice
+ # vote = current_user.votes.create()
+ # p params[:question]
+ 
+ # puts "GREGS TRY"
+ # params[:question].each do |question|
+ #  question.each do |k,v|
+ #    puts v
+  # end
+ # end
 
+ # params[:question].each do |question|
+ #  question.each_key do |key|
+ #    p question.fetch(key)
+ #  end
+ # end
+ # p params[:question_id]
+ # p params[:survey_id]
+ # current_user.votes.create(params)
+ # vote = current_user.votes.create(params)
+ # erb :select_survey
 end
 
 

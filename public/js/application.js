@@ -15,7 +15,7 @@ $(document).ready(function() {
     $question.appendTo('.survey_questions');
   }
 
-  $('#form_button').on('submit', function(e) {
+  $('#survey_form').on('submit', function(e) {
     e.preventDefault();
     var form_data = $(this).serializeArray();
     var survey = {};

@@ -1,18 +1,16 @@
 <h2><%= @survey.name%></h2>
 
 <ul>
+  <form action="/vote" method="post">
   <% @survey.questions.each do |question| %>
-    
-    <form action="/vote" method="post">
-      <li><%= question.content %>
+      <li><%= question.content %></li>
       <% question.choices.each do |choice| %>
         <p>
-        <input type="radio" name= "choice_id" value= "<%=choice.id%>"><%=choice.content%></input>
+        <input type="radio" name="p[123]bobo"><%=choice.content%></input>
         </p>
       <% end %>
-      <input type="hidden" name="survey_id" value= "<%=@survey.id%>">
-      <input type="hidden" name="question_id" value= "<%=question.id%>">
-    </li>
+<!--       <input type="hidden" name="[survey]" value= "<%=@survey.id%>">
+      <input type="hidden" name="[question]" value= "<%=question.id%>"> -->
   <% end %>
    <input type="submit" value="Submit">
     </form>
