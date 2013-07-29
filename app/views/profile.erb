@@ -30,7 +30,7 @@
     <ul>
       <% if @surveys_created %>
         <% @surveys_created.each do |survey_created| %>
-      <li><a href="/surveys/<%=surveys_created.id%>"><%= survey_created.name %></a></li>
+      <li><a href="/surveys/<%=survey_created.id%>/results"><%= survey_created.name %></a></li>
     <% end %>
   </form>
   <% end %>

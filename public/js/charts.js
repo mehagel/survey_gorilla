@@ -1,14 +1,10 @@
 $(function(){
 
-  mySurvey = new Survey();
-
   $.get(location.pathname+'/get', {js_origin: true})
     .done(function(survey){
+      var mySurvey = new Survey();
       mySurvey.parseSurvey(survey);
-
-      console.log(mySurvey);
-
-      mySurvey.updateCurrentQuestion(true);
+      mySurvey.updateCurrentQuestion();
       mySurvey.updateChart();
 
       bindEvents(mySurvey);
@@ -18,14 +14,41 @@ $(function(){
 
 function bindEvents(survey){
   $('#next').click(function(){
-    survey.question_index += 1;
-    survey.updateCurrentQuestion(false);
-    survey.updateChart();
-  })
+    if (!$(this).hasClass('disabled')){
+      handleNext(survey);
+    }
+  });
+  $('#prev').click(function(){
+    if (!$(this).hasClass('disabled')){
+      handlePrev(survey);
+    }
+  });
 }
 
-function updateAll(){
+function handleNext(survey){
+  survey.resetChart();
+  survey.question_index += 1;
+  survey.updateCurrentQuestion();
+  survey.updateChart();
+  if (survey.question_index > 0){
+    $('#prev').removeClass('disabled');
+  }
+  if (survey.question_index >= (survey.questions.length - 1)) {
+    $('#next').addClass('disabled');
+  }
+}
 
+function handlePrev(survey){
+  survey.resetChart();
+  survey.question_index -= 1;
+  survey.updateCurrentQuestion();
+  survey.updateChart();
+  if (survey.question_index == 0){
+    $('#prev').addClass('disabled');
+  }
+  if (survey.question_index < (survey.questions.length - 1)) {
+    $('#next').removeClass('disabled');
+  }
 }
 
 // Survey object
@@ -48,11 +71,9 @@ Survey.prototype = {
   updateCurrentQuestion: function(first){
     this.currentQuestion = this.questions[this.question_index];
     var question_tag = $('#question')
-    if (!first){
-      question_tag.fadeOut(400);
-    }
+    question_tag.hide();
     question_tag.text(this.currentQuestion.content);
-    question_tag.fadeIn(400);
+    question_tag.fadeIn(750);
   },
   updateChart: function(){
     vote_data = [];
@@ -62,6 +83,9 @@ Survey.prototype = {
       choice_data.push(choice.content);
     });
     this.chart.renderChart(vote_data, choice_data);
+  },
+  resetChart: function(){
+    this.chart.resetChart();
   }
 }
 
@@ -99,14 +123,30 @@ var Chart = function(){
 // http://mbostock.github.io/d3/tutorial/bar-1.html
 
 Chart.prototype = {
+  resetChart: function(){
+    // bars
+    this.chart.selectAll("rect")
+        .remove();
+
+    // vote value
+    this.chart.selectAll(".vote-val")
+        .remove();
+
+    // choice content
+    this.chart.selectAll(".choice-content")
+        .remove();
+
+    this.chart.selectAll("line")
+        .remove();
+  },
+
   renderChart: function(vote_data, choice_data){
+
     var x = d3.scale.linear()
         .domain([0, d3.max(vote_data)])
-        .range([0, 420]);
+        .range([0, 420]);    
 
-    
-
-    // enter()
+    // UPDATE AND ENTER
 
     // bars
     this.chart.selectAll("rect")
@@ -115,13 +155,10 @@ Chart.prototype = {
         .attr("x",100)
         .attr("y", function(d, i) { return i * 20 })
         .attr("width", 0)
-        .attr("height", 20)
-      .transition()
-        .duration(750)
-        .attr("width", x);
+        .attr("height", 20);
 
     // vote value
-    this.chart.selectAll("text .vote-val")
+    this.chart.selectAll(".vote-val")
         .data(vote_data)
       .enter().append("text")
         .attr("class", "vote-val")
@@ -130,10 +167,11 @@ Chart.prototype = {
         .attr("dx", -3)
         .attr("dy", ".35em")
         .attr("text-anchor", "end")
+        .style("fill-opacity", 1e-6)
         .text(String);
 
     // choice content
-    this.chart.selectAll("text .choicecontent")
+    this.chart.selectAll(".choice-content")
         .data(choice_data)
       .enter().append("text")
         .attr("class", "choice-content")
@@ -142,10 +180,32 @@ Chart.prototype = {
         .attr("dx", -3)
         .attr("dy", ".35em")
         .attr("text-anchor", "end")
+        .style("fill-opacity", 1e-6)
         .text(String);
 
+    // transition in bars
+    this.chart.selectAll("rect")
+      .transition()
+        .duration(750)
+        .attr("width", x);
+
+    // transition in vote values
+    this.chart.selectAll(".vote-val")
+      .transition()
+        .duration(750)
+        .style("fill-opacity", 1);
+
+    // transition in choice content
+    this.chart.selectAll(".choice-content")
+      .transition()
+        .duration(750)
+        .style("fill-opacity", 1);
+
     // line
-    this.chart.append("line")
+    this.chart.selectAll("line")
+        .data([1])
+      .enter().append("line")
+        .style("z-index",1)
         .attr("x1",100)
         .attr("x2",100)
         .attr("y1", 0)

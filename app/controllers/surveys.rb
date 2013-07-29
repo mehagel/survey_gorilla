@@ -1,9 +1,9 @@
 get '/surveys/:id/results' do
 
   # this breaks easily with the current implementation of current_user
-  # @user = current_user # uncomment this line for real behavior
+  @user = current_user # uncomment this line for real behavior
   @survey = Survey.find_by_id(params[:id])
-  @user = @survey.user # comment this line for real behavior
+  # @user = @survey.user # comment this line for real behavior
   if @user == @survey.user
     erb :survey_results, :layout => :chart
   else

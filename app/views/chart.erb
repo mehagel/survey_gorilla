@@ -9,7 +9,6 @@
   <link rel="stylesheet" href="/css/normalize.css">
   <link rel="stylesheet" href="/css/bootstrap.css">
   <link rel="stylesheet" href="/css/jake.css">
-  <link rel="stylesheet" href="/css/application.css">
   <link rel="stylesheet" href="/css/charts.css">
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -24,15 +23,17 @@
 </head>
 <body>
   <ul id='ul_nav' class="nav nav-tabs">
-  <% if logged_in? %>
-   <li class="active"><a href="/logout">Logout</a></li>
-   <li><a href="/create_survey"></a>Create Survey</li>
-   <li><a href="/">Select Survey</a></li>
-  <% else %>
-     <li><a href='/' style='color: #CC3399;'>Survey Bunny</a></li> 
-     <li><a id='login' href="">Login</a></li>
-  <% end %>
-  </ul>
+    <li><a href='/' style='color: #CC3399;'>Survey Bunny</a></li> 
+    <% if logged_in? %>
+    <li><a href="/logout">Logout</a></li>
+    <li><a href="/create_survey">Create Survey</a></li>
+    <li><a href="/profile">Profile</a></li>
+    <% else %>
+    <li><a id='login' href="">Login</a></li>
+    <%end%>
+</ul>
+<div class="container">
   <%= yield %>
+</div>
 </body>
 </html>

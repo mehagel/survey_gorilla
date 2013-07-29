@@ -58,5 +58,11 @@ end
 
 get '/profile' do
   
-  erb :profile
+  if @user = current_user
+    @surveys_created = Survey.where(user_id: @user.id)
+    erb :profile
+  else
+    erb :not_authorized
+  end
+  
 end
