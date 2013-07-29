@@ -2,19 +2,19 @@
 
 <ul>
   <% @survey.questions.each do |question| %>
-    <li><%= question.content %>
+    
     <form action="/vote" method="post">
+      <li><%= question.content %>
       <% question.choices.each do |choice| %>
         <p>
-          <input type="radio" name= "choice_id" value= "<%=choice.id%>"><%=choice.content%></input>
+        <input type="radio" name= "choice_id" value= "<%=choice.id%>"><%=choice.content%></input>
         </p>
       <% end %>
       <input type="hidden" name="survey_id" value= "<%=@survey.id%>">
       <input type="hidden" name="question_id" value= "<%=question.id%>">
-
-      <input type="submit" value="Submit">
-    </form>
     </li>
   <% end %>
+   <input type="submit" value="Submit">
+    </form>
 </ul>
 

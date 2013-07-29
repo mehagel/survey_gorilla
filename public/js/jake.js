@@ -79,9 +79,5 @@ function menu_hide(no_log){
   }, 800);
   if (no_log == true){
     $('#login').fadeIn(500);
-  }else if (no_log == false){
-    console.log('here')
-    $('#logged1').fadeIn(500);
-    $('#logged2').fadeIn(500);
   }
 }

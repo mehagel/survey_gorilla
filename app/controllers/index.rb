@@ -1,6 +1,10 @@
 get '/' do
-  @surveys = Survey.all
-  erb :select_survey
+  if session[:id]
+    @surveys = Survey.all
+    erb :select_survey
+  else
+    erb :select_survey
+  end
 end
 
 get '/surveys/:id' do
@@ -36,12 +40,11 @@ get '/logout' do
 end 
 
 post '/vote' do
-
-  @vote = Vote.new(params)
-  # once the helper method current_user function is active this needs to be active
-  @vote.user_id = (session[:id])
-  @vote.save
-  erb :index
+ p params[:user_id] = current_user.id
+ p params
+   # current_user.votes.create()
+  # Vote.create(params)
+  # erb :select_survey
 
 end
 
